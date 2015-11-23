@@ -1,44 +1,45 @@
+describe("Test the Uuid angular service", function() {
 
-describe("Test the Uuid angular service", function () {
+    var uuidService = null;
 
-	var uuidService = null;
+    beforeEach(function() {
 
-	beforeEach(function () {
+        module('correlator-sharp');
 
-		module('correlator-sharp');
+        inject(function(_csUuid_) {
+            uuidService = _csUuid_;
+        });
+    });
 
-		inject(function (_Uuid_) {
-			uuidService = _Uuid_;
-		});
-	});
+    it('should provide a generation function', function() {
+        expect(angular.isFunction(uuidService.generate)).toBe(true);
+    });
 
-	it('should provide a generation function', function () {
-		expect(angular.isFunction(uuidService.generate)).toBe(true);
-	});
+    it('should return a new uuid from the generate function', function() {
 
-	it('should return a new uuid from the generate function', function () {
+        var uuidValue = uuidService.generate();
 
-		var uuidValue = uuidService.generate();
+        expect(uuidValue).toBeTruthy();
+        expect(angular.isString(uuidValue.value)).toBe(true);
+        expect(uuidValue.time instanceof Date).toBe(true);
+    });
 
-		expect(uuidValue).toBeTruthy();
-		expect(angular.isString(uuidValue.value)).toBe(true);
-		expect(uuidValue.time instanceof Date).toBe(true);
-	});
+    it('should provide unique values', function() {
 
-	it('should provide unique values', function () {
+        // One hundred values in not much I know, but felt I needed to
+        // say something about uniqueness.
 
-		// One hundred values in not much I know, but felt I needed to
-		// say something about uniqueness.
+        var output = []
+        var input = Array.apply(null, {
+            length: 100
+        }).map(function() {
+            return uuidService.generate().value;
+        });
 
-		var output = []
-		var input = Array.apply(null, { length: 100 }).map(function (){
-			return uuidService.generate().value;
-		});
+        for (var i = 0; i < input.length; i++) {
+            expect(output.indexOf(input[i])).toBeLessThan(0);
+            output.push(input[i]);
+        }
+    });
 
-		for (var i = 0; i < input.length; i++) {
-			expect(output.indexOf(input[i])).toBeLessThan(0);
-	    	output.push(input[i]);
-		}
-	});	
-	
 });

@@ -1,44 +1,67 @@
+(function(crypto, globals) {
+
+    /* Regex for checking is string is UUID or empty GUID
+	/*****************************************************/
+
+    let UUID_REGEX = /[a-fA-F0-9]{8}-[a-fA-F0-9]{4}-4[a-fA-F0-9]{3}-[89aAbB][a-fA-F0-9]{3}-[a-fA-F0-9]{12}|[0]{8}-[0]{4}-[0]{4}-[0]{4}-[0]{12}/;
+
+    globals.isUuid = function isUuid(suspectString) {
+        return suspectString.match(UUID_REGEX);
+    }
 
 
+    /* Generate a new uuid string using browser crypto or time.
+	/*****************************************************/
 
-(function (crypto, globals) {
+    function rngCrypto() {
+        return crypto.getRandomValues(new Uint8Array(1))[0];
+    }
 
-	let UUID_REGEX = /[a-fA-F0-9]{8}-[a-fA-F0-9]{4}-4[a-fA-F0-9]{3}-[89aAbB][a-fA-F0-9]{3}-[a-fA-F0-9]{12}|[0]{8}-[0]{4}-[0]{4}-[0]{4}-[0]{12}/;
+    function rngTime(i) {
+        if ((i & 0x03) === 0) r = Math.random() * 0x100000000;
+        return r >>> ((i & 0x03) << 3) & 0xff;;
+    }
 
-	function generateNewId() {
-		
-		return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function(c) {
-		    let r = crypto.getRandomValues(new Uint8Array(1))[0] % 16 | 0, 
-		    	v = c == 'x' ? r : (r & 0x3 | 0x8);
+    let rng = crypto && crypto.getRandomValues && Uint8Array ? rngCrypto : rngTime;
 
-		    return v.toString(16);
-		});
-	}
+    function generateNewId() {
+        let i = 0;
+        return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function(c) {
+            let r = rng(i) % 16 | 0,
+                v = c == 'x' ? r : (r & 0x3 | 0x8);
+            i++;
+            return v.toString(16);
+        });
+    }
 
-	class Uuid {
 
-		static get EMPTY() { 
-			return '00000000-0000-0000-0000-000000000000' 
-		};
+    /* Uuid object wrapper for validation and 'security'.
+	/*****************************************************/
 
-		constructor(seed) {
-			if (seed && !seed.match(UUID_REGEX)) {
-				throw new Error('seed value for uuid must be valid uuid.');
-			}
+    class Uuid {
 
-			this.innervalue = seed || generateNewId();
-			this.innertime = new Date();
-		}
+        static get EMPTY() {
+            return '00000000-0000-0000-0000-000000000000'
+        }
 
-		get value() {
-			return this.innervalue;
-		}
+        constructor(seed) {
+            if (seed && !isUuid(seed)) {
+                throw new Error('seed value for uuid must be valid uuid.');
+            }
 
-		get time() {
-			return this.innertime;
-		}
-	}
+            this.innervalue = seed || generateNewId();
+            this.innertime = new Date();
+        }
 
-	globals.Uuid = Uuid;
+        get value() {
+            return this.innervalue;
+        }
 
-} (window.crypto || window.msCrypto, window));
+        get time() {
+            return this.innertime;
+        }
+    }
+
+    globals.Uuid = Uuid;
+
+}(window.crypto || window.msCrypto, window));

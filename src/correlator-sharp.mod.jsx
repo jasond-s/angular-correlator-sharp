@@ -1,48 +1,111 @@
+(function(ng, uuid, cs) {
+
+    ng
+
+    .module('correlator-sharp', [])
+
+    /* Add the interceptor to the app provider
+    /*****************************************************/
+
+    .config(['$httpProvider', function($httpProvider) {
+
+        $httpProvider.interceptors.push('csHttpInterceptor');
+
+    }])
 
 
+    /* Interceptor used for setting headers from the current activity.
+    /*****************************************************/
 
-(function (ng) {
+    .factory('csHttpInterceptor', [
+        'csStatic',
+        'csActivityScope',
 
-	let CORRELATION_ID_HEADER = 'X-Correlation-Id';
+        function(statics, activityScope) {
 
-	ng
+            return {
 
-		.module('correlator-sharp', [ ])
+                request: function(config) {
 
-		.factory('correlatorSharpHttpInterceptor', ['ActivityScope', function(activityScope) {
+                    // Add the current activity scope's id.
 
-			return {
+                    config.headers[statics.CORRELATION_ID_HEADER] = activityScope.current.id.value;
+                    config.headers[statics.CORRELATION_ID_STARTED_HEADER] = activityScope.current.id.time;
+                    config.headers[statics.CORRELATION_ID_NAME_HEADER] = activityScope.current.name;
 
-				'request': function(config) {
+                    if (activityScope.current.parent)
+                        config.headers[statics.CORRELATION_ID_PARENT_HEADER] = activityScope.current.id.parent.id;
 
-					// Add the current activity scope's id.
+                    return config;
+                },
 
-					config.headers[CORRELATION_ID_HEADER] = activityScope.current.id.value;
+                response: function(response) {
 
-					return config;
-				},
+                    let correlationId = response.headers[statics.CORRELATION_ID_HEADER];
+                    if (correlationId) {
 
-				'response': function(response) {
+                        // Setup the scope with server generated id.
+                        let name = `${response.config.method} ${response.config.url}`;
 
-					let correlationId = response.headers[CORRELATION_ID_HEADER];
-					if (correlationId) {
-						// Setup the scope with server generated id.
+                        activityScope.create(name, correlationId)
+                    }
 
-						let name = `${response.config.url} ${response.config.method}`;
+                    return response;
+                }
+            };
 
-						activityScope.current = activityScope.fromHeader(name, correlationId);
-					}
+        }
+    ])
 
-					return response;
-				}
-			};
+    /* Globals useful for the other apps to use.
+    /*****************************************************/
 
-		}])
+    .service('csStatic', function() {
+        return ng.extend({}, cs.statics);
+    })
 
-		.config(['$httpProvider', function ($httpProvider) {
+    /* Angular wrapper around the UUID module.
+    /*****************************************************/
 
-			$httpProvider.interceptors.push('correlatorSharpHttpInterceptor');
+    .service('csUuid', function() {
+        return {
+            generate: function(seed) {
+                return new uuid(seed);
+            }
+        }
+    })
 
-		}]);
+    /* Angular wrapper around the ActivityScope module.
+    /*****************************************************/
 
-} (angular))
+    .service('csActivityScope', ['$rootScope', 'csUuid', function($rootscope, uuid) {
+
+        return {
+
+            // Access memebers
+
+            get current() {
+                return cs.ActivityScope.current;
+            },
+
+            set current(value) {
+                cs.ActivityScope.current = value;
+            },
+
+            // Creation members.
+
+            create(name, seed) {
+                return cs.ActivityScope.create(name, seed);
+            },
+
+            child(name, seed) {
+                return cs.ActivityScope.child(name, seed);
+            },
+
+            new(name, seed) {
+                return cs.ActivityScope.new(name, seed);
+            }
+        };
+    }]);
+
+}(angular, Uuid, CorrelatorSharp))

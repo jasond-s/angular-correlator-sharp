@@ -1,38 +1,47 @@
 {
-  "name": "angular-correlator-sharp",
-  "version": "0.0.1",
-  "description": "A simple angular web layer for the correlator sharp package.",
-  "main": "karma.conf.js",
-  "scripts": {
-    "test": "karma start karma.conf.js",
-    "start": "brunch build --production",
-    "build": "brunch build --production"
-  },
-  "keywords": [
-    "correlator-sharp",
-    "correlatorsharp",
-    "angular",
-    "correlation-id"
-  ],
-  "author": {
-    "name": "Jsaon Dryhurst-Smith",
-    "email": "jason@jasonds.co.uk",
-    "url": "jsaonds.co.uk"
-  },
-  "repository": {
-    "type": "git",
-    "url": "git://github.com/jasond-s/angular-correlator-sharp.git"
-  },
-  "license": "MIT",
-  "dependencies": {
-    "angular": "^1.4.8",
-    "angular-router": "0.0.2",
-    "angular-ui-router": "^0.2.15"
-  },
-  "devDependencies": {
-    "angular-mocks": "^1.4.8",
-    "babel-brunch": "^5.1.2",
-    "javascript-brunch": "^1.8.0",
-    "uglify-js-brunch": "^1.7.8"
-  }
+    "name": "angular-correlator-sharp",
+    "version": "0.0.1-alpha",
+    "description": "A simple angular web layer for the correlator sharp package.",
+    "scripts": {
+        "test": "karma start karma.conf.js",
+        "build": "brunch build --production"
+    },
+    "keywords": [
+        "correlator-sharp",
+        "correlatorsharp",
+        "angular",
+        "correlation-id"
+    ],
+    "author": {
+        "name": "Jsaon Dryhurst-Smith",
+        "email": "jason@jasonds.co.uk",
+        "url": "jsaonds.co.uk"
+    },
+    "repository": {
+        "type": "git",
+        "url": "git://github.com/jasond-s/angular-correlator-sharp.git"
+    },
+    "license": "MIT",
+    "_id": "angular-correlator-sharp@0.0.1",
+    "_from": "angular-correlator-sharp@0.0.1",
+    "_npmVersion": "2.7.3",
+    "_nodeVersion": "1.6.2",
+    "_npmUser": {
+        "name": "tigerswithguitars",
+        "email": "jason@jasonds.co.uk"
+    },
+    "dependencies": {
+        "angular": "^1.4.8",
+        "angular-ui-router": "^0.2.15"
+    },
+    "devDependencies": {
+        "angular-mocks": "^1.4.8",
+        "babel-brunch": "^5.1.2",
+        "jasmine-core": "^2.3.4",
+        "javascript-brunch": "^1.8.0",
+        "karma": "^0.13.15",
+        "karma-firefox-launcher": "^0.1.7",
+        "karma-jasmine": "^0.3.6",
+        "uglify-js-brunch": "^1.7.8"
+    }
 }
