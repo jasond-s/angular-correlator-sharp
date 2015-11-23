@@ -1,0 +1,38 @@
+{
+  "name": "angular-correlator-sharp",
+  "version": "0.0.1",
+  "description": "A simple angular web layer for the correlator sharp package.",
+  "main": "karma.conf.js",
+  "scripts": {
+    "test": "karma start karma.conf.js",
+    "start": "brunch build --production",
+    "build": "brunch build --production"
+  },
+  "keywords": [
+    "correlator-sharp",
+    "correlatorsharp",
+    "angular",
+    "correlation-id"
+  ],
+  "author": {
+    "name": "Jsaon Dryhurst-Smith",
+    "email": "jason@jasonds.co.uk",
+    "url": "jsaonds.co.uk"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/jasond-s/angular-correlator-sharp.git"
+  },
+  "license": "MIT",
+  "dependencies": {
+    "angular": "^1.4.8",
+    "angular-router": "0.0.2",
+    "angular-ui-router": "^0.2.15"
+  },
+  "devDependencies": {
+    "angular-mocks": "^1.4.8",
+    "babel-brunch": "^5.1.2",
+    "javascript-brunch": "^1.8.0",
+    "uglify-js-brunch": "^1.7.8"
+  }
+}
