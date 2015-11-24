@@ -8,6 +8,8 @@ A simple angular module providing support for the [correlator sharp package](htt
 
 ## Installation
 
+Cureently the alpha is not published on NPM, will update when beta goes live on NPM.
+
 `npm install angular-correlator-sharp --save`
 
 
@@ -50,3 +52,20 @@ This package currently come pre packaged with a number of extras, including Acti
 It also has a tracing logger for [Azure's Application Insights](https://azure.microsoft.com/en-gb/documentation/articles/app-insights-get-started/) tracing. 
 
 As the package grows and new logging frameworks and front-end frameworks are added, these will be broken out into their own packages.
+
+
+### Todo
+
+1. Add support for other app frameworks
+    - Ember
+    - React
+    - Backbone
+    - etc.
+2. Add support for other client side logging frameworks
+    - log4js
+    - etc
+2. Either break up the project into multiple smaller pieces or improve the build pipeline for building out multiple configurations.
+3. Nail down the scope for the activity in a consistant way
+    - Any custom preference is currently supported of course.    
+    - GET (form or page)?
+    - UI state?

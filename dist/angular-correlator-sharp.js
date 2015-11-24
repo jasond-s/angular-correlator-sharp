@@ -134,8 +134,7 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
     }
 
     function rngTime(i) {
-        if ((i & 0x03) === 0) r = Math.random() * 0x100000000;
-        return r >>> ((i & 0x03) << 3) & 0xff;;
+        return Math.random() * 0x100000000 >>> ((i & 0x03) << 3) & 0xff;
     }
 
     var rng = crypto && crypto.getRandomValues && Uint8Array ? rngCrypto : rngTime;
@@ -143,9 +142,8 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
     function generateNewId() {
         var i = 0;
         return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function (c) {
-            var r = rng(i) % 16 | 0,
+            var r = rng(i++) % 16 | 0,
                 v = c == 'x' ? r : r & 0x3 | 0x8;
-            i++;
             return v.toString(16);
         });
     }

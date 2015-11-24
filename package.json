@@ -1,6 +1,6 @@
 {
     "name": "angular-correlator-sharp",
-    "version": "0.0.1-alpha",
+    "version": "0.0.1-alpha+1",
     "description": "A simple angular web layer for the correlator sharp package.",
     "scripts": {
         "test": "karma start karma.conf.js",
@@ -22,14 +22,6 @@
         "url": "git://github.com/jasond-s/angular-correlator-sharp.git"
     },
     "license": "MIT",
-    "_id": "angular-correlator-sharp@0.0.1",
-    "_from": "angular-correlator-sharp@0.0.1",
-    "_npmVersion": "2.7.3",
-    "_nodeVersion": "1.6.2",
-    "_npmUser": {
-        "name": "tigerswithguitars",
-        "email": "jason@jasonds.co.uk"
-    },
     "dependencies": {
         "angular": "^1.4.8",
         "angular-ui-router": "^0.2.15"

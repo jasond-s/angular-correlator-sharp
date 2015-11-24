@@ -108,4 +108,4 @@
         };
     }]);
 
-}(angular, Uuid, CorrelatorSharp))
+}(angular, Uuid, CorrelatorSharp));

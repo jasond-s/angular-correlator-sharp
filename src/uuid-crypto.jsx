@@ -18,8 +18,7 @@
     }
 
     function rngTime(i) {
-        if ((i & 0x03) === 0) r = Math.random() * 0x100000000;
-        return r >>> ((i & 0x03) << 3) & 0xff;;
+        return Math.random() * 0x100000000 >>> ((i & 0x03) << 3) & 0xff;
     }
 
     let rng = crypto && crypto.getRandomValues && Uint8Array ? rngCrypto : rngTime;
@@ -27,9 +26,8 @@
     function generateNewId() {
         let i = 0;
         return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function(c) {
-            let r = rng(i) % 16 | 0,
+            let r = rng(i++) % 16 | 0,
                 v = c == 'x' ? r : (r & 0x3 | 0x8);
-            i++;
             return v.toString(16);
         });
     }
