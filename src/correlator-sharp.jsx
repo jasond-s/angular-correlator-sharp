@@ -1,6 +1,6 @@
-(function(uuid, globals) {
+(function(correlatorSharp, uuid, globals) {
 
-    let CorrelatorSharp = {};
+    let CorrelatorSharp = correlatorSharp;
 
 
     /* Static module memebers.
@@ -96,4 +96,4 @@
 
     globals.CorrelatorSharp = CorrelatorSharp;
 
-}(Uuid, window));
+}(window.CorrelatorSharp || {}, Uuid, window));

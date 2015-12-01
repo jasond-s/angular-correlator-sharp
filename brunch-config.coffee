@@ -12,6 +12,7 @@ module.exports = config:
 			joinTo: 
 				'angular-correlator-sharp.js': /src/
 				'angular-correlator-sharp.min.js': /src/
+				'raw-correlator-sharp.js': /src\/correlator-sharp.jsx|src\/uuid-crypto.jsx/
 			order:
 		      before: [ 
 		      	'src/uuid-crypto.jsx', 
