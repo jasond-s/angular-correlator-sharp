@@ -25,18 +25,22 @@
 
             return {
 
-                request: function(config) {
+                request: function(request) {
+
+                    // Add the name for the scope.
+                    let name = `${request.method} ${request.url}`;
 
                     // Add the current activity scope's id.
+                    let reqScope = new cs.ActivityScope(name, activityScope.current);
 
-                    config.headers[statics.CORRELATION_ID_HEADER] = activityScope.current.id.value;
-                    config.headers[statics.CORRELATION_ID_STARTED_HEADER] = activityScope.current.id.time;
-                    config.headers[statics.CORRELATION_ID_NAME_HEADER] = activityScope.current.name;
+                    request.headers[statics.CORRELATION_ID_HEADER] = reqScope.id.value;
+                    request.headers[statics.CORRELATION_ID_STARTED_HEADER] = reqScope.id.time;
+                    request.headers[statics.CORRELATION_ID_NAME_HEADER] = reqScope.name;
 
-                    if (activityScope.current.parent)
-                        config.headers[statics.CORRELATION_ID_PARENT_HEADER] = activityScope.current.id.parent.id;
+                    if (reqScope.parent)
+                        request.headers[statics.CORRELATION_ID_PARENT_HEADER] = reqScope.id.parent.id;
 
-                    return config;
+                    return request;
                 },
 
                 response: function(response) {

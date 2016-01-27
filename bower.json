@@ -1,0 +1,27 @@
+{
+  "name": "angular-correlator-sharp",
+  "description": "A simple angular web layer for the correlator sharp package.",
+  "main": "dist/angular-correlator-sharp.min.js",
+  "authors": [
+    "Jason Dryhurst-Smith"
+  ],
+  "license": "MIT",
+  "keywords": [
+    "correlator-sharp",
+    "correlatorsharp",
+    "angular",
+    "correlation-id"
+  ],
+  "homepage": "https://github.com/jasond-s/angular-correlator-sharp",
+  "moduleType": [],
+  "ignore": [
+    "**/.*",
+    "brunch-config.coffee",
+    "karma.conf.js",
+    "package.json",
+    "node_modules",
+    "bower_components",
+    "test",
+    "src"
+  ]
+}
