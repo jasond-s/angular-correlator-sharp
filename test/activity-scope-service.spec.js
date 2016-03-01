@@ -25,6 +25,12 @@ describe("Test the ActivityScope angular service", function() {
         expect(activityScopeService.current).toBeTruthy();
     });
 
+    it('should provide a uuid as the activity id', function() {
+        activityScopeService.create('TEST_SCOPE');
+
+        expect(activityScopeService.current.id.toString()).toEqual(jasmine.any(String));
+    });
+
     it('should not allow the creation of a scope from invalid uuid', function() {
 
         expect(function() {

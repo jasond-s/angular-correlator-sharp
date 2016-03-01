@@ -39,15 +39,15 @@
     class Uuid {
 
         static get EMPTY() {
-            return '00000000-0000-0000-0000-000000000000'
+            return new Uuid('00000000-0000-0000-0000-000000000000');
         }
 
         constructor(seed) {
-            if (seed && !isUuid(seed)) {
+            if (seed && !isUuid(seed.toString())) {
                 throw new Error('seed value for uuid must be valid uuid.');
             }
 
-            this.innervalue = seed || generateNewId();
+            this.innervalue = (seed || generateNewId()).toString();
             this.innertime = new Date();
         }
 
@@ -58,7 +58,12 @@
         get time() {
             return this.innertime;
         }
-    }
+
+        // Override to return just the uuid.
+        toString() {
+            return this.value;
+        }
+    }      
 
     globals.Uuid = Uuid;
 

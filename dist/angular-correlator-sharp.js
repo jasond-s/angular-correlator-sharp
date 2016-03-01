@@ -155,22 +155,29 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
         _createClass(Uuid, null, [{
             key: 'EMPTY',
             get: function get() {
-                return '00000000-0000-0000-0000-000000000000';
+                return new Uuid('00000000-0000-0000-0000-000000000000');
             }
         }]);
 
         function Uuid(seed) {
             _classCallCheck(this, Uuid);
 
-            if (seed && !isUuid(seed)) {
+            if (seed && !isUuid(seed.toString())) {
                 throw new Error('seed value for uuid must be valid uuid.');
             }
 
-            this.innervalue = seed || generateNewId();
+            this.innervalue = (seed || generateNewId()).toString();
             this.innertime = new Date();
         }
 
         _createClass(Uuid, [{
+            key: 'toString',
+
+            // Override to return just the uuid.
+            value: function toString() {
+                return this.value;
+            }
+        }, {
             key: 'value',
             get: function get() {
                 return this.innervalue;
