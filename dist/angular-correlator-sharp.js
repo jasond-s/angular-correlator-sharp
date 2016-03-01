@@ -325,13 +325,17 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
 
             request: function request(config) {
 
+                // Add the name for the scope.
+                var name = config.method + ' ' + config.url;
+
                 // Add the current activity scope's id.
+                var reqScope = new cs.ActivityScope(name, activityScope.current);
 
-                config.headers[statics.CORRELATION_ID_HEADER] = activityScope.current.id.value;
-                config.headers[statics.CORRELATION_ID_STARTED_HEADER] = activityScope.current.id.time;
-                config.headers[statics.CORRELATION_ID_NAME_HEADER] = activityScope.current.name;
+                config.headers[statics.CORRELATION_ID_HEADER] = reqScope.id.value;
+                config.headers[statics.CORRELATION_ID_STARTED_HEADER] = reqScope.id.time;
+                config.headers[statics.CORRELATION_ID_NAME_HEADER] = reqScope.name;
 
-                if (activityScope.current.parent) config.headers[statics.CORRELATION_ID_PARENT_HEADER] = activityScope.current.id.parent.id;
+                if (reqScope.parent) config.headers[statics.CORRELATION_ID_PARENT_HEADER] = reqScope.parent.id.value;
 
                 return config;
             },
@@ -356,7 +360,7 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
     /*****************************************************/
 
     .service('csStatic', function () {
-        return ng.extend({}, cs.statics);
+        return ng.extend({}, cs.Statics);
     })
 
     /* Angular wrapper around the UUID module.

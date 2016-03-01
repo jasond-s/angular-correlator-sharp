@@ -27,14 +27,18 @@
 
                 request: function(config) {
 
+                    // Add the name for the scope.
+                    let name = `${config.method} ${config.url}`;
+
                     // Add the current activity scope's id.
+                    let reqScope = new cs.ActivityScope(name, activityScope.current);
 
-                    config.headers[statics.CORRELATION_ID_HEADER] = activityScope.current.id.value;
-                    config.headers[statics.CORRELATION_ID_STARTED_HEADER] = activityScope.current.id.time;
-                    config.headers[statics.CORRELATION_ID_NAME_HEADER] = activityScope.current.name;
+                    config.headers[statics.CORRELATION_ID_HEADER] = reqScope.id.value;
+                    config.headers[statics.CORRELATION_ID_STARTED_HEADER] = reqScope.id.time;
+                    config.headers[statics.CORRELATION_ID_NAME_HEADER] = reqScope.name;
 
-                    if (activityScope.current.parent)
-                        config.headers[statics.CORRELATION_ID_PARENT_HEADER] = activityScope.current.id.parent.id;
+                    if (reqScope.parent)
+                        config.headers[statics.CORRELATION_ID_PARENT_HEADER] = reqScope.parent.id.value;
 
                     return config;
                 },
@@ -61,7 +65,7 @@
     /*****************************************************/
 
     .service('csStatic', function() {
-        return ng.extend({}, cs.statics);
+        return ng.extend({}, cs.Statics);
     })
 
     /* Angular wrapper around the UUID module.

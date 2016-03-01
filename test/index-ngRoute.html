@@ -43,7 +43,7 @@
 				});
         }])
 
-        .controller('myController', ['$scope', 'csActivityScope', function ($scope, csActivityScope) {
+        .controller('myController', ['$scope', 'csActivityScope', '$http', function ($scope, csActivityScope, $http) {
 
             // The id of the 'myController_child' scope.
             $scope.stateChangeCorrelationId = csActivityScope.current.id.value;
@@ -62,6 +62,19 @@
 
             // Generate a new root scope
             csActivityScope.create('myApp');
+
+            $http({
+                method: 'GET',
+                url: 'index-ngRoute.html'
+            })
+            .then(
+                function successCallback(response) {
+                    $scope.requestSuccess = true;
+                }, 
+
+                function errorCallback(response) {
+                    $scope.requestSuccess = false;
+                });
         }]);
 
     </script>
