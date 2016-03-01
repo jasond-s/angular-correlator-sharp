@@ -14,7 +14,7 @@ module.exports = config:
 				'angular-correlator-sharp.min.js': /src/
 				'raw-correlator-sharp.js': /src\/correlator-sharp.jsx|src\/uuid-crypto.jsx/
 			order:
-		      before: [ 
-		      	'src/uuid-crypto.jsx', 
-		      	'src/activity-scope.jsx' 
-		      ]
+				before: [ 
+					'src/uuid-crypto.jsx', 
+					'src/activity-scope.jsx' 
+				]

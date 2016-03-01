@@ -1,6 +1,6 @@
 {
     "name": "angular-correlator-sharp",
-    "version": "0.0.1-alpha+2",
+    "version": "0.1.1-beta",
     "description": "A simple angular web layer for the correlator sharp package.",
     "scripts": {
         "test": "karma start karma.conf.js",
