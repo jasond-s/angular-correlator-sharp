@@ -47,7 +47,7 @@
             function getConfig() {
                 return {
                     statics.CORRELATION_ID_HEADER: activityScope.current.id.value,
-                    statics.CORRELATION_ID_STARTED_HEADER: activityScope.current.id.time,
+                    statics.CORRELATION_ID_STARTED_HEADER: activityScope.current.id.time.toISOString(),
                     statics.CORRELATION_ID_NAME_HEADER: activityScope.current.name,
                     statics.CORRELATION_ID_PARENT_HEADER: activityScope.current.parent ? activityScope.current.parent.id : null;
                 }
