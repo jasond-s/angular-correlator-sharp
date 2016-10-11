@@ -36,7 +36,7 @@
     		throw new Error('Activity Scope is not supported.');
 
         xhrFromBeforeSend.setRequestHeader(statics.CORRELATION_ID_HEADER], currentScope.id.value);
-        xhrFromBeforeSend.setRequestHeader(statics.CORRELATION_ID_STARTED_HEADER], currentScope.id.time);
+        xhrFromBeforeSend.setRequestHeader(statics.CORRELATION_ID_STARTED_HEADER], currentScope.id.time.toISOString());
         xhrFromBeforeSend.setRequestHeader(statics.CORRELATION_ID_NAME_HEADER], currentScope.name); 
 
         if (currentScope.parent)

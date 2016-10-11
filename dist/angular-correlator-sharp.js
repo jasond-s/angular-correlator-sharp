@@ -366,9 +366,7 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
     /*****************************************************/
 
     .factory('csHttpInterceptor', ['csStatic', 'csActivityScope', function (statics, activityScope) {
-
         return {
-
             request: function request(config) {
 
                 // Add the name for the scope.

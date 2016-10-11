@@ -22,9 +22,7 @@
         'csActivityScope',
 
         function(statics, activityScope) {
-
             return {
-
                 request: function(config) {
 
                     // Add the name for the scope.
