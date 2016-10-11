@@ -34,7 +34,7 @@
                     let reqScope = new cs.ActivityScope(name, activityScope.current);
 
                     config.headers[statics.CORRELATION_ID_HEADER] = reqScope.id.value;
-                    config.headers[statics.CORRELATION_ID_STARTED_HEADER] = reqScope.id.time;
+                    config.headers[statics.CORRELATION_ID_STARTED_HEADER] = reqScope.id.time.toISOString();
                     config.headers[statics.CORRELATION_ID_NAME_HEADER] = reqScope.name;
 
                     if (reqScope.parent)
